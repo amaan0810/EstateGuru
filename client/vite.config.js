@@ -7,8 +7,8 @@ export default defineConfig({
     proxy: {
       '/test': 'http://localhost:3000/api/user',
       '/api/auth/signup': {
-        target :'http://localhost:3000',
-        secure : false,
+        target: 'http://localhost:3000',
+        secure: false,
       },
     },
   },
