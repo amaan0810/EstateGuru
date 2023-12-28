@@ -14,12 +14,12 @@ export default function Header() {
         </Link>
         <form className='bg-slate-100 p-3 rounded-lg flex items-center'>
           <input className='bg-transparent focus:outline-none w-24 sm:w-64' type='text' placeholder='Search...' />
-          <FaSearch className='text-slate-600' />
+          <FaSearch className='text-blue-900' />
         </form>
         <ul className='flex gap-4 font-medium'>
-          <Link to="/"><li className='hidden sm:inline text-blue-900 hover:underline'>Home</li></Link>
-          <Link to='/about'><li className='hidden sm:inline text-blue-900 hover:underline'>About</li></Link>
-          <Link to='/signin'><li className=' sm:inline text-blue-900 hover:underline'>Sign  in</li></Link>
+          <Link to="/"><li className='hidden sm:inline text-blue-500 hover:underline'>Home</li></Link>
+          <Link to='/about'><li className='hidden sm:inline text-blue-500 hover:underline'>About</li></Link>
+          <Link to='/signin'><li className=' sm:inline text-blue-500 hover:underline'>Sign  in</li></Link>
         </ul>
       </div>
     </header>

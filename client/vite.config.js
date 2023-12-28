@@ -10,6 +10,10 @@ export default defineConfig({
         target: 'http://localhost:3000',
         secure: false,
       },
+      '/api/auth/signin': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
     },
   },
   plugins: [react()],
