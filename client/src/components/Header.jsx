@@ -2,6 +2,7 @@
 import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import logo from '../images/estate guru square.png'
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -10,6 +11,7 @@ export default function Header() {
       <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
         <Link to='/'>
           <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
+            <img className='mr-2 h-7 w-7' src={logo}/>
             <span className='text-blue-500'>Estate</span>
             <span className='text-blue-900'>Guru</span>
           </h1>
