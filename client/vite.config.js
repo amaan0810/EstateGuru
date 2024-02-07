@@ -5,7 +5,13 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   server: {
     proxy: {
-      '/test': 'http://localhost:3000/api/user',
+      '/test': 'http://localhost:3000/api/user'
+      ,
+      '/api/': {
+        target: 'http://localhost:3000',
+        secure: false,
+      }
+      ,
       
       '/api/auth/signup': {
         target: 'http://localhost:3000',
