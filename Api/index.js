@@ -8,6 +8,8 @@ import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
+app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log("connected to MongoDB")
@@ -18,11 +20,10 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 
 app.get('/',(req,res)=>{
-    res.send('Hello ');
+    res.send('Hello '+req.cookies.access_token);
 })
 
-app.use(express.json());
-app.use(cookieParser());
+
 
 app.use('/api/user',userRouter);
 
@@ -43,3 +44,4 @@ app.use((err,req,res,next)=>{
         message,
     });
 });
+
