@@ -7,9 +7,7 @@ import {
 import { useState } from "react";
 import { app } from "../firebase";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
-
-
+import { useNavigate } from "react-router-dom";
 
 export default function CreateListing() {
   const [files, setFiles] = useState([]);
@@ -57,13 +55,11 @@ export default function CreateListing() {
           });
           setImageUploadError(false);
           setUploading(false);
-          
         })
         .catch((err) => {
           setImageUploadError("Image upload failed (2MB max per image)");
           setUploading(false);
         });
-       
     } else {
       setImageUploadError("You can only upload 6 images per listing");
       setUploading(false);
@@ -141,7 +137,7 @@ export default function CreateListing() {
         },
         body: JSON.stringify({ ...formData, userRef: currentUser._id }),
       });
-      const data =await res.json();
+      const data = await res.json();
       setLoading(false);
       if (data.success === false) {
         setError(data.message);
@@ -288,7 +284,11 @@ export default function CreateListing() {
               />
               <div className="flex flex-col items-center">
                 <p>Regular Price</p>
-                <span className="text-xs">(₹ / Month)</span>
+                {formData.type === "rent" ? (
+                  <span className="text-xs">(₹ / Month)</span>
+                ) : (
+                  <span className="text-xs">₹</span>
+                )}
               </div>
             </div>
 
@@ -305,7 +305,11 @@ export default function CreateListing() {
                 />
                 <div className="flex flex-col items-center">
                   <p>Discounted Price</p>
+                  {formData.type === "rent" ? (
                   <span className="text-xs">(₹ / Month)</span>
+                ) : (
+                  <span className="text-xs">₹</span>
+                )}
                 </div>
               </div>
             )}
@@ -361,7 +365,10 @@ export default function CreateListing() {
               </div>
             ))}
 
-          <button disabled={loading || uploading} className="bg-blue-900 text-white p-3 uppercase font-semibold rounded-lg hover:opacity-95 disabled:opacity-70">
+          <button
+            disabled={loading || uploading}
+            className="bg-blue-900 text-white p-3 uppercase font-semibold rounded-lg hover:opacity-95 disabled:opacity-70"
+          >
             {loading ? "Creating" : "create listing"}
           </button>
         </div>
