@@ -31,8 +31,10 @@ export default function Header() {
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
             <img className="mr-2 h-7 w-7" src={logo} />
+            <div>
             <span className="text-blue-500">Estate</span>
             <span className="text-blue-900">Guru</span>
+            </div>
           </h1>
         </Link>
         <form onSubmit={handleSubmit} className="bg-slate-100 p-3 rounded-lg flex items-center">
