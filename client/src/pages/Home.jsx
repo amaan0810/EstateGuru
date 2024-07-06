@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Navigation,EffectFade,Pagination,Autoplay } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import ListingItem from '../components/ListingItem';
@@ -11,12 +11,14 @@ export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
-  SwiperCore.use([Navigation]);
+  const navigate = useNavigate();
+
+  SwiperCore.use([Navigation,EffectFade,Pagination,Autoplay]);
   console.log(offerListings);
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
-        const res = await fetch('/api/listing/get?offer=true&limit=4');
+        const res = await fetch('/api/listing/get?offer=true&limit=5');
         const data = await res.json();
         setOfferListings(data);
         fetchRentListings();
@@ -41,15 +43,20 @@ export default function Home() {
         const data = await res.json();
         setSaleListings(data);
       } catch (error) {
-        log(error);
+        console.log(error);
       }
     };
     fetchOfferListings();
   }, []);
+
+  const handleClick=()=>{
+    navigate('/search')
+  }
+
   return (
     <div className="bg-[url('../images/flatcity.png')]">
       {/* top */}
-      <div className='flex flex-col gap-6 p-5 md:p-32 md:px-44 max-w-8xl   bg-white w-full text-center h-max-44 animate-slidein'>
+      <div className='flex flex-col gap-6 p-5 md:p-32 md:px-44 max-w-8x bg-white w-full text-center h-max-44 animate-slidein'>
         <h1 className='text-black-700 font-bold text-3xl lg:text-6xl animate-slidein'>
           Find Your Next <span className='text-blue-700'>Perfect</span>
           <br />
@@ -64,19 +71,27 @@ export default function Home() {
 
         <div className='flex justify-center items-center animate-slidein'>
         <button className=' w-36 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-        <Link
-          to={'/search'}
-        >
           Get started...
-        </Link>
         </button>
         </div>
         <div className='flex justify-center items-center'>
           <img className='object-cover' src={faltcity}/>
         </div>
       </div>
-
-      <Swiper navigation>
+      <div>
+      <Swiper 
+         spaceBetween={30}
+         effect={'fade'}
+         autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+         navigation={true}
+         pagination={{
+           clickable: true,
+         }}
+         modules={[EffectFade, Navigation, Pagination]}
+      >
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (
@@ -94,7 +109,7 @@ export default function Home() {
             </SwiperSlide>
           ))}
       </Swiper>
-
+      </div>
 
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10 items-center justify-center'>
         {offerListings && offerListings.length > 0 && (
